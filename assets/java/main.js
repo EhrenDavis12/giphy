@@ -1,6 +1,9 @@
 
+var devMode = false;
+
 function main() {
     stateHandler("startScreen");
+    
 }
 
 function addSearch() {
@@ -16,38 +19,48 @@ function addSearch() {
 
 function giphyBtnRequest(searchString) {
     console.debug("giphyBtnRequest: " + searchString);
-    giphyAPI.getLocalSample("face Palm", displayResults);
+    if (devMode)
+        {giphyAPI.getLocalSample("face Palm", displayResultsUsingCardFactory);}
+    else
+        {giphyAPI.getGiphyAPI(searchString, displayResultsUsingCardFactory);}
+
 }
 
-function displayResults(results) {
+function displayResultsUsingCardFactory(results) {
+    results = giphyAPI.getDataFromResponse(results);
+
     console.debug("displayResults");
     getHTML("giphyRow").empty();
+
     for (var i = 0; i < results.length; i++) {
-        var gifDiv = $("<div>");
-
-        var rating = results[i].rating;
-
-        var p = $("<p>").text("Rating: " + rating);
-
-        var image = $("<img  class='giphyItem'>");
-        image.attr("src", results[i].images.fixed_height_still.url);
-        image.attr("data-active", results[i].images.fixed_height.url);
-        image.attr("data-inactive", results[i].images.fixed_height_still.url);
-        image.attr("data-state", "inactive");
-
-        gifDiv.prepend(p);
-        gifDiv.prepend(image);
-
-        getHTML("giphyRow").prepend(gifDiv);
+        let jsonCard = buildGiphyCard(results[i]);
+        cardFactory.createCardByArrayOfJson(getHTML("giphyRow"), jsonCard);
     }
 }
 
-function switchGiphyState(giphyItem){
+function buildGiphyCard(element){
+    return jsonCard = [
+        {
+            "div": "<img>",
+            "text": "",
+            "attrs": {
+                "class": "giphyItem",
+                "src": element.images.fixed_height_still.url,
+                "data-active": element.images.fixed_height.url,
+                "data-inactive": element.images.fixed_height_still.url,
+                "data-state": "inactive"
+            }
+        },
+        { "div": "<p>", "text": "Rating: " + element.rating }
+    ];
+}
+
+function switchGiphyState(giphyItem) {
     let state = giphyItem.attr("data-state");
-    if (state === "inactive"){
+    if (state === "inactive") {
         giphyItem.attr("data-state", "active");
         giphyItem.attr("src", giphyItem.attr("data-active"));
-    }else{
+    } else {
         giphyItem.attr("data-state", "inactive");
         giphyItem.attr("src", giphyItem.attr("data-inactive"));
     }
