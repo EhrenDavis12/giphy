@@ -1,18 +1,9 @@
-/* 
-.card{
-    height: 200px;
-    background-color: var(--cardBkgColor);
-    color: var(--cardTextColor);
+:root{
+    --cardBkgColor: rgba(38, 0, 255, 0.2);
 }
 
-.card-title{
+.card{
+    margin: 1em;
+    background-color: var(--cardBkgColor);
     text-align: center;
 }
-
-.card-subtitle{
-    margin-left: 20px;
-}
-.card-text{
-    margin-left: 20px;
-}
- */
