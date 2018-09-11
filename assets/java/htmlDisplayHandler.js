@@ -1,5 +1,5 @@
 
-function stateHandler(state) {
+/* function stateHandler(state) {
     switch (state) {
         case "startScreen":
             console.debug("state: startScreen");
@@ -10,6 +10,13 @@ function stateHandler(state) {
             htmlDisplayHandler.startScreen();
             break;
     }
+} */
+
+function stateHandler(state) {
+    let runState = htmlDisplayHandler[state] || null;
+    console.debug("state: " + state);
+    if (runState !== null) { runState(); }
+    else { htmlDisplayHandler.startScreen(); }
 }
 
 function getHTML(prop) {
