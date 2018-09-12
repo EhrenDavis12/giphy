@@ -3,7 +3,6 @@ var devMode = false;
 
 function main() {
     stateHandler("startScreen");
-    
 }
 
 function addSearch() {
