@@ -36,5 +36,6 @@ var htmlDisplayHandler = {
     startScreen: function () {
         getHTML("jumboWords").text(getMessage("jumboWords"));
         getHTML("textDescription").text(getMessage("textDescription"));
+        $('body').css('background-image', 'url(./assets/images/woldBkg.jpg)');
     }
 }

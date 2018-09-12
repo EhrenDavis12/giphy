@@ -16,7 +16,7 @@ body{
     background-color: var(--clear);
     color: var(--textColor);
     font-family: var(--font-family);
-    background-image: url("/assets/images/woldBkg.jpg");
+    /* background-image: url("/assets/images/woldBkg.jpg"); */
     background-size: cover;
     background-repeat: no-repeat;
 }
